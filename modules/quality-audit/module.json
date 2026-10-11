@@ -1,0 +1,16 @@
+{
+    "name": "QualityAudit",
+    "slug": "quality-audit",
+    "version": "1.0.0",
+    "description": "ISO 9001 Quality Audit Checklist, Inspection Gates, and Corrective Actions (CAPA) Engine",
+    "author": "ApexERP Ecosystem",
+    "providers": [
+        "Modules\\QualityAudit\\Providers\\QualityAuditServiceProvider"
+    ],
+    "menu": {
+        "name": "Quality Audits & CAPA",
+        "icon": "governance",
+        "route": "modules.quality-audit.index",
+        "order": 45
+    }
+}

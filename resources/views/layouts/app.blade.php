@@ -156,6 +156,50 @@
             @include('layouts.app-header')
             <!-- app header end -->
             <div class="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
+                @if (session('success'))
+                    <div class="mb-4 flex items-center justify-between p-4 rounded-xl border border-success-200 bg-success-50 dark:border-success-900/50 dark:bg-success-950/40 text-success-800 dark:text-success-200" x-data="{ show: true }" x-show="show">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-success-600 dark:text-success-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-sm font-medium">{{ session('success') }}</span>
+                        </div>
+                        <button @click="show = false" class="text-success-500 hover:text-success-700 dark:hover:text-success-100">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                        </button>
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="mb-4 flex items-center justify-between p-4 rounded-xl border border-error-200 bg-error-50 dark:border-error-900/50 dark:bg-error-950/40 text-error-800 dark:text-error-200" x-data="{ show: true }" x-show="show">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-error-600 dark:text-error-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-sm font-medium">{{ session('error') }}</span>
+                        </div>
+                        <button @click="show = false" class="text-error-500 hover:text-error-700 dark:hover:text-error-100">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                        </button>
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="mb-4 p-4 rounded-xl border border-error-200 bg-error-50 dark:border-error-900/50 dark:bg-error-950/40 text-error-800 dark:text-error-200" x-data="{ show: true }" x-show="show">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-semibold">Please correct the following errors:</span>
+                            <button @click="show = false" class="text-error-500 hover:text-error-700">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                            </button>
+                        </div>
+                        <ul class="list-disc list-inside text-xs space-y-1">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 @yield('content')
             </div>
         </div>

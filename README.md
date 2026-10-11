@@ -1,530 +1,193 @@
-# TailAdmin Laravel - Tailwind CSS Free Laravel Dashboard
+# ApexERP — Multi-Tenant Modular SaaS ERP Application
 
-**TailAdmin Laravel** is a modern, production-ready admin dashboard template powered by **Laravel 12**, **Tailwind CSS v4**, **Alpine.js**, and a clean, modular architecture. TailAdmin is one of the most popular Tailwind CSS dashboard now also available for Larvael. It’s designed for building fast, scalable admin panels, CRM dashboards, SaaS backends, and any data-driven application where clarity and performance matter.
-![TailAdmin - Next.js Dashboard Preview](./tailadmin-laravel.png)
+[![Laravel 13](https://img.shields.io/badge/Laravel-13.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP 8.4+](https://img.shields.io/badge/PHP-8.4%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Livewire v4](https://img.shields.io/badge/Livewire-v4-FB70A9?style=for-the-badge&logo=livewire&logoColor=white)](https://livewire.laravel.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 
-
-## Quick Links
-
-* [✨ Get TailAdmin Laravel](https://tailadmin.com/laravel)
-* [📄 Documentation](https://tailadmin.com/docs)
-* [⬇️ Download](https://tailadmin.com/download)
-* [🌐 Live Demo](https://laravel-demo.tailadmin.com)
-
-Here’s a tighter, more search-friendly version that highlights value and avoids fluff while keeping your structure intact.
-
-## ✨ Key Features
-
-* 🚀 **Laravel 12 Core** - Built on the latest Laravel release with improved routing, security, and Blade templating
-* 🎨 **Tailwind CSS v4** - Utility-first styling for rapid, consistent UI development
-* ⚡ **Alpine.js Interactivity** - Lightweight reactivity without a heavy JavaScript framework
-* 📦 **Vite Build System** - Fast dev server, instant HMR, and optimized production builds
-* 📱 **Fully Responsive Layouts** - Smooth, mobile-first design that adapts across all screen sizes
-* 🌙 **Built-in Dark Mode** - Ready-to-use modern dark theme for better usability and aesthetics
-* 📊 **Advanced UI Components** - Charts, data tables, forms, calendars, modals, and reusable blocks for complex dashboards
-* 🎯 **Production-Ready Dashboard UI** - Clean, modern interface crafted for real apps, not placeholder demos
-
-### Other Versions
-
-- [Next.js Version](https://github.com/TailAdmin/free-nextjs-admin-dashboard)
-- [React.js Version](https://github.com/TailAdmin/free-react-tailwind-admin-dashboard)
-- [Vue.js Version](https://github.com/TailAdmin/vue-tailwind-admin-dashboard)
-- [Angular Version](https://github.com/TailAdmin/free-angular-tailwind-dashboard)
-- [Laravel Version](https://github.com/TailAdmin/tailadmin-laravel)
-
-## 📋 Requirements
-To set up TailAdmin Laravel, make sure your environment includes:
-
-* **PHP 8.2+**
-* **Composer** (PHP dependency manager)
-* **Node.js 18+** and **npm** (for compiling frontend assets)
-* **Database** - Works with SQLite (default), MySQL, or PostgreSQL
-
-### Tailwind CSS Laravel Dashboard
-
-TailAdmin delivers a refined Tailwind CSS Laravel Dashboard experience, combining Laravel’s robust backend with Tailwind’s flexible utility classes. The result is a clean, fast, and customizable dashboard that helps developers build modern admin interfaces without the usual front-end complexity. It’s ideal for teams looking for a Tailwind-powered Laravel starter that stays lightweight and easy to scale.
-
-### Laravel Admin Dashboard
-
-If you’re searching for a dependable Laravel Admin Dashboard template that’s easy to set up and ready for production, TailAdmin fits the job. It offers a polished UI, reusable components, optimized performance, and all the essentials needed to launch dashboards, CRM systems, and internal tools quickly. It gives developers a solid foundation, so projects move faster with fewer decisions to worry about.
-
-### Check Your Environment
-
-Verify your installations:
-
-```bash
-php -v
-composer -V
-node -v
-npm -v
-```
-
-## 🐳 Docker & Laravel Sail Setup (Official)
-
-TailAdmin Laravel includes pre-configured, official support for **Docker** powered by **Laravel Sail** (PHP 8.4, MySQL 8.0, Redis, and Mailpit).
-
-### Prerequisites
-Make sure [Docker Desktop](https://www.docker.com/products/docker-desktop/) is installed and running on your machine.
-
-### Quick Start with Docker & Sail
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/TailAdmin/tailadmin-laravel.git
-   cd tailadmin-laravel
-   ```
-
-2. **Configure environment:**
-   ```bash
-   cp .env.example .env
-   ```
-   In your `.env` file, ensure container networking is set:
-   ```env
-   DB_HOST=mysql
-   DB_USERNAME=sail
-   DB_PASSWORD=password
-   REDIS_HOST=redis
-   ```
-
-3. **Install Composer dependencies (if PHP is not installed locally):**
-   ```bash
-   docker run --rm \
-       -u "$(id -u):$(id -g)" \
-       -v "$(pwd):/var/www/html" \
-       -w /var/www/html \
-       laravelsail/php84-composer:latest \
-       composer install --ignore-platform-reqs
-   ```
-   *(Or simply run `composer install` if you have PHP and Composer locally).*
-
-4. **Start Docker containers:**
-   ```bash
-   ./vendor/bin/sail up -d
-   ```
-
-5. **Generate application key & run migrations:**
-   ```bash
-   ./vendor/bin/sail artisan key:generate
-   ./vendor/bin/sail artisan migrate
-   ```
-
-6. **Install frontend dependencies & start Vite dev server:**
-   ```bash
-   ./vendor/bin/sail npm install
-   ./vendor/bin/sail npm run dev
-   ```
-
-7. **Access the application:**
-   - **TailAdmin Dashboard:** [http://localhost](http://localhost) (or [http://localhost:8000](http://localhost:8000) if `APP_PORT=8000`)
-   - **Vite Dev Server:** [http://localhost:5173](http://localhost:5173) (auto-proxied with HMR)
-   - **Mailpit Web UI:** [http://localhost:8025](http://localhost:8025)
-
-### Convenient Sail Shell Alias
-To avoid typing `./vendor/bin/sail` repeatedly, add an alias to your shell profile (`~/.zshrc` or `~/.bashrc`):
-```bash
-alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
-```
-Now you can run:
-```bash
-sail up -d
-sail artisan migrate
-sail npm run dev
-sail down
-```
-
-### Container Networking & Vite Architecture
-- **Vite Dev Server (Port 5173)**: Pre-configured in `vite.config.js` with `server.host: "0.0.0.0"` and `server.hmr.host: "localhost"`. This ensures the host browser can access assets directly without `ERR_EMPTY_RESPONSE` connection errors.
-- **Volume File Watcher**: File polling (`usePolling: true`) is enabled in `vite.config.js` to guarantee instant hot reload when editing code on macOS, Windows, or Linux host filesystems.
-- **Container Database Host**: Inside the Docker bridge network, services communicate via container names. Set `DB_HOST=mysql` and `REDIS_HOST=redis` inside Docker.
-- **Tailwind CSS v4**: Seamlessly compiled inside containers via `@tailwindcss/vite` without legacy v3 config conflicts.
+> A production-ready, multi-tenant enterprise resource planning (SaaS ERP) application engineered with **Laravel 13**, **MariaDB/MySQL**, **Tailwind CSS v4**, **Livewire v4**, **Blade**, **Alpine.js v3**, and a **WordPress-like ZIP installable module engine**.
 
 ---
 
-## 🚀 Quick Start Installation (Local / Native)
+## 🌟 Key Features
 
-### Step 1: Clone the Repository
+### 🏢 1. Multi-Tenancy & Domain-Driven Design (DDD)
+- **Subdomain Routing**: Dynamic tenant resolution (`companya.erp.com`, `companyb.erp.com`, or `?tenant=companya`).
+- **Strict Data Isolation**: Automatic query isolation enforced at the Eloquent and database level via `BelongsToTenant` and `TenantScope`.
+- **Subscription Management**: Tenant seat allocations, feature gating, NVMe storage caps, and billing cycles.
 
+### 📦 2. Extensible Modular Architecture & ZIP Plugin Engine
+- **Modular Repository Pattern**: Standardized `RepositoryInterface` and `BaseRepository` decoupling queries from business logic.
+- **WordPress-Style Module System**: External modules located in root `modules/` with `module.json` manifests.
+- **Dynamic Navigation Registration**: Newly installed modules inject their own sidebar menu, pages, routes, views, and migrations without modifying core code.
+- **ZIP Package Installer**: Upload `.zip` plugins via the web UI (`/settings/modules`) or CLI (`php artisan module:install`).
+- **Module Generator**: Scaffold new modules instantly with `php artisan module:make <Name>`.
+- **Hook & Event Bus**: WordPress-style action and filter hooks (`Hook::addAction`, `Hook::applyFilter`) for seamless inter-module communication.
+
+### 🏭 3. Manufacturing & MRP Execution
+- **Multi-Level Bills of Material (BOM)**: Engineering recipes with raw materials and scrap percentage tolerances.
+- **Shop-Floor Work Orders**: Order scheduling with raw material availability checks, automatic stock deduction on start, and finished good receipt on completion.
+- **Material Consumption Tracking**: Compare actual shop-floor usage against BOM expectations to prevent scrap variance.
+- **Quality Control (QC)**: Caliper tolerance checks, lot dispositioning, and defect logging.
+
+### 💰 4. Finance, Double-Entry Accounting & Indian GST
+- **General Ledger**: Strict double-entry balance equality ($\sum \text{Debit} = \sum \text{Credit}$).
+- **Indian GST Engine**:
+  - Intra-state ($50\%$ CGST + $50\%$ SGST)
+  - Inter-state ($100\%$ IGST)
+- **Statutory Return Filing**: B2B schedule table for **GSTR-1** (Table 4A) and summary calculations for **GSTR-3B** (Outward Liability vs. Inward ITC).
+- **Financial Statements**: Balance Sheet and Profit & Loss (P&L) statements.
+
+### 📦 5. Inventory & Multi-Warehouse Management
+- Central warehouses, shop-floor staging racks, and quarantine zones.
+- Real-time SKU stock levels (on-hand, reserved, available).
+- Immutable stock transaction journal recording inward receipts, production issues, and sales dispatches.
+
+### 🛒 6. Procurement & Vendor Management
+- Supplier master directory with GSTIN tracking.
+- 3-way matching Purchase Orders (PO).
+- Goods Receipt Notes (GRN) with automated stock increases and ledger entries.
+
+### 🤝 7. CRM, Sales & Logistics
+- Sales opportunity leads pipeline with one-click customer conversion.
+- Sales order contracts with dynamic Indian GST tax line calculation.
+- Delivery Challans (E-Way bills, transporter names, vehicle registrations).
+- GST Tax Invoices and customer payment receipts with bank ledger reconciliation.
+
+### 👥 8. HR & Indian Statutory Payroll
+- Staff master directory with PF UAN and PAN tax identification.
+- Biometric check-in/out attendance logging and shift timesheets.
+- Leave requests with manager approval workflows.
+- Monthly payroll runs with automated statutory deductions (**PF 12%**, **PT ₹200**, **TDS**) and automatic General Ledger posting.
+
+### 🛡️ 9. Governance, RBAC & Mobile REST APIs
+- Multi-tier approval workflows for purchase orders and expenditures.
+- Immutable audit trail logs for all entity mutations.
+- Granular Role-Based Access Control (RBAC).
+- OAuth 2.0 / Laravel Sanctum Bearer token REST API endpoints for future iOS & Android mobile applications.
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technology |
+| :--- | :--- |
+| **Backend Framework** | Laravel 13.x |
+| **Language Runtime** | PHP 8.4+ |
+| **Database** | MariaDB 12+ / MySQL 8.0+ |
+| **CSS Engine** | Tailwind CSS v4 (configured via `@theme` in `app.css`) |
+| **Frontend Reactivity**| Livewire v4 & Alpine.js v3 |
+| **Asset Pipeline** | Vite 7 (`@tailwindcss/vite`) |
+| **Authentication** | Laravel Sanctum |
+| **Testing** | Pest PHP & PHPUnit (12 passed, 50 assertions) |
+
+---
+
+## 🚀 Quick Start & Installation
+
+### 1. Clone the Repository
 ```bash
-git clone https://github.com/TailAdmin/tailadmin-laravel.git
-cd tailadmin-laravel
+git clone https://github.com/pravinkumarravi/apex-saas-erp.git
+cd apex-saas-erp
 ```
 
-### Step 2: Install PHP Dependencies
-
+### 2. Install Dependencies
 ```bash
 composer install
-```
-
-This command will install all Laravel dependencies defined in `composer.json`.
-
-### Step 3: Install Node.js Dependencies
-
-```bash
 npm install
 ```
 
-Or if you prefer yarn or pnpm:
-
-```bash
-# Using yarn
-yarn install
-
-# Using pnpm
-pnpm install
-```
-
-### Step 4: Environment Configuration
-
-Copy the example environment file:
-
+### 3. Environment Configuration
 ```bash
 cp .env.example .env
-```
-
-**For Windows users:**
-
-```bash
-copy .env.example .env
-```
-
-**Or create it programmatically:**
-
-```bash
-php -r "file_exists('.env') || copy('.env.example', '.env');"
-```
-
-### Step 5: Generate Application Key
-
-```bash
 php artisan key:generate
 ```
 
-This creates a unique encryption key for your application.
-
-### Step 6: Configure Database
-
-#### Option A: Using MySQL/PostgreSQL
-
-Update your `.env` file with your database credentials:
-
+Configure your MariaDB/MySQL credentials in `.env`:
 ```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=tailadmin_db
-DB_USERNAME=your_username
-DB_PASSWORD=your_password
+DB_DATABASE=erp_saas
+DB_USERNAME=root
+DB_PASSWORD=
 ```
 
-Create the database:
-
+### 4. Database Migrations & Seeders
 ```bash
-# MySQL
-mysql -u root -p -e "CREATE DATABASE tailadmin_db;"
-
-# PostgreSQL
-createdb tailadmin_db
+php artisan migrate --seed
 ```
 
-Run migrations:
-
-```bash
-php artisan migrate
-```
-
-### Step 7: (Optional) Seed the Database
-
-If you want sample data:
-
-```bash
-php artisan db:seed
-```
-
-### Step 8: Storage Link
-
-Create a symbolic link for file storage:
-
-```bash
-php artisan storage:link
-```
-
-## 🏃 Running the Application
-
-### Development Mode (Recommended)
-
-The easiest way to start development is using the built-in script:
-
-```bash
-composer run dev
-```
-
-This single command starts:
-- ✅ Laravel development server (http://localhost:8000)
-- ✅ Vite dev server for hot module reloading
-- ✅ Queue worker for background jobs
-- ✅ Log monitoring
-
-**Access your application at:** [http://localhost:8000](http://localhost:8000)
-
-### Manual Development Setup
-
-If you prefer to run services individually in separate terminal windows:
-
-**Terminal 1 - Laravel Server:**
-```bash
-php artisan serve
-```
-
-**Terminal 2 - Frontend Assets:**
-```bash
-npm run dev
-```
-
-### Building for Production
-
-#### Build Frontend Assets
-
+### 5. Compile Frontend Assets
 ```bash
 npm run build
 ```
 
-#### Optimize Laravel
-
+### 6. Run the Application
 ```bash
-# Clear and cache configuration
-php artisan config:cache
-
-# Cache routes
-php artisan route:cache
-
-# Cache views
-php artisan view:cache
-
-# Optimize autoloader
-composer install --optimize-autoloader --no-dev
+php artisan serve
 ```
 
-#### Production Environment
+---
 
-Update your `.env` for production:
+## 🔑 Demo Tenants & Credentials
 
-```env
-APP_ENV=production
-APP_DEBUG=false
-APP_URL=https://yourdomain.com
-```
+The database seeder pre-configures two enterprise organizations:
 
+### Tenant A: Tata Precision Engineering Ltd (Maharashtra, GST: 27)
+- **URL**: `http://localhost:8000/?tenant=companya`
+- **Email**: `admin@companya.erp.com`
+- **Password**: `password`
 
-## 🧪 Testing
+### Tenant B: Zenith Robotics Technologies (Karnataka, GST: 29)
+- **URL**: `http://localhost:8000/?tenant=companyb`
+- **Email**: `admin@companyb.erp.com`
+- **Password**: `password`
 
-Run the test suite using Pest:
+---
 
+## 🧩 Working With Modules
+
+### Listing Discovered Modules
 ```bash
-composer run test
+php artisan module:list
 ```
 
-Or manually:
+### Scaffolding a New Module
+```bash
+php artisan module:make BarcodeScanner
+```
 
+### Installing an External Module from ZIP
+```bash
+php artisan module:install /path/to/my-module.zip
+```
+Or upload via the Web UI at **Administration &rarr; Modular Plugin Manager** (`/settings/modules`).
+
+---
+
+## 🧪 Running Automated Tests
+
+Run the comprehensive Pest test suite:
 ```bash
 php artisan test
 ```
 
-Run with coverage:
+```
+   PASS  Tests\Unit\ExampleTest
+   PASS  Tests\Feature\ApiSanctumTest
+   PASS  Tests\Feature\ExampleTest
+   PASS  Tests\Feature\GstAndAccountingTest
+   PASS  Tests\Feature\ManufacturingWorkflowTest
+   PASS  Tests\Feature\ModularPluginSystemTest
+   PASS  Tests\Feature\TenancyIsolationTest
 
-```bash
-php artisan test --coverage
+  Tests:    12 passed (50 assertions)
+  Duration: 1.00s
 ```
 
-Run specific tests:
+---
 
-```bash
-php artisan test --filter=ExampleTest
-```
-
-## 📜 Available Commands
-
-### Composer Scripts
-
-```bash
-# Start development environment
-composer run dev
-
-# Run tests
-composer run test
-
-# Code formatting (if configured)
-composer run format
-
-# Static analysis (if configured)
-composer run analyze
-```
-
-### NPM Scripts
-
-```bash
-# Start Vite dev server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-
-# Lint JavaScript/TypeScript
-npm run lint
-
-# Format code
-npm run format
-```
-
-### Artisan Commands
-
-```bash
-# Start development server
-php artisan serve
-
-# Run migrations
-php artisan migrate
-
-# Rollback migrations
-php artisan migrate:rollback
-
-# Fresh migrations with seeding
-php artisan migrate:fresh --seed
-
-# Generate application key
-php artisan key:generate
-
-# Clear all caches
-php artisan optimize:clear
-
-# Cache everything for production
-php artisan optimize
-
-# Create symbolic link for storage
-php artisan storage:link
-
-# Start queue worker
-php artisan queue:work
-
-# List all routes
-php artisan route:list
-
-# Create a new controller
-php artisan make:controller YourController
-
-# Create a new model
-php artisan make:model YourModel -m
-
-# Create a new migration
-php artisan make:migration create_your_table
-```
-
-## 📁 Project Structure
-
-```
-tailadmin-laravel/
-├── app/                    # Application logic
-│   ├── Http/              # Controllers, Middleware, Requests
-│   ├── Models/            # Eloquent models
-│   └── Providers/         # Service providers
-├── bootstrap/             # Framework bootstrap files
-├── config/                # Configuration files
-├── database/              # Migrations, seeders, factories
-│   ├── migrations/
-│   ├── seeders/
-│   └── factories/
-├── public/                # Public assets (entry point)
-│   ├── build/            # Compiled assets (generated)
-│   └── index.php         # Application entry point
-├── resources/             # Views and raw assets
-│   ├── css/              # Stylesheets (Tailwind)
-│   ├── js/               # JavaScript files (Alpine.js)
-│   └── views/            # Blade templates
-├── routes/                # Route definitions
-│   ├── web.php           # Web routes
-│   ├── api.php           # API routes
-│   └── console.php       # Console routes
-├── storage/               # Logs, cache, uploads
-│   ├── app/
-│   ├── framework/
-│   └── logs/
-├── tests/                 # Pest test files
-│   ├── Feature/
-│   └── Unit/
-├── docker-compose.yml     # Docker & Laravel Sail configuration
-├── .env.example           # Example environment file
-├── artisan                # Artisan CLI
-├── composer.json          # PHP dependencies
-├── package.json           # Node dependencies
-├── vite.config.js         # Vite configuration with container networking
-└── resources/css/app.css  # Tailwind CSS v4 configuration (@theme)
-```
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-#### "Class not found" errors
-```bash
-composer dump-autoload
-```
-
-#### Permission errors on storage/bootstrap/cache
-```bash
-chmod -R 775 storage bootstrap/cache
-```
-
-#### NPM build errors
-```bash
-rm -rf node_modules package-lock.json
-npm install
-```
-
-#### Clear all caches
-```bash
-php artisan optimize:clear
-```
-
-#### Database connection errors
-- Check `.env` database credentials
-- Ensure database server is running
-- Verify database exists
-
-## 🔄 Update Log
-
-### [1.1.2] - 2026-09-02
-
-- **Dependency updates**: FullCalendar upgraded to v7 and ApexCharts / Swiper bumped to latest versions.
-- **RTL layout support**: Added right-to-left (RTL) direction support with automatic layout flipping and toggle.
-- **Language / RTL switcher**: Added switcher in user dropdown with persistent direction state in `localStorage`.
-- **Keyboard & dropdown improvements**: Enhanced dropdown behavior and click-outside handling.
-- **Tailwind CSS v4 optimizations**: Applied CSS logical properties across sidebar, tables, header, and components.
-
-
-### [2026-05-23]
-
-- Added **AI Settings** page to configure models, keys, and token limits.
-- Added **Maps** page with MapLibre GL, Leaflet, and iframe styles.
-- Added **Vector Maps** page powered by AmCharts 5 geodata (World & USA).
-- Added **Radar Charts** page with 3 unique formats.
-- Added **Radial Progress Charts** page featuring 4 custom layout templates.
-- Introduced new **Bar Charts Five & Six** and **Pie Charts Four & Five**.
-
-### [April 28, 2026]
-- Added **AI Dashboard** with token usage and revenue tracking.
-- Added **Sales Dashboard** with retention and multi-channel analytics.
-- Added **Finance Dashboard** with cashflow and balance management.
-- Introduced **6 New Layout variations** for improved UI flexibility.
-- Integrated **Advanced Data Visualization** with 7+ new chart types.
-
-### [2026-03-15]
-- Fixed PHP 8.5 deprecation warning
-
-### [2025-12-29]
-- Added Date Picker in Statistics Chart
-
-## License
-
-Refer to our [LICENSE](https://tailadmin.com/license) page for more information.
+## 📄 License
+This application is open-sourced software licensed under the [MIT license](LICENSE).
