@@ -48,4 +48,31 @@ class TenancyIsolationTest extends TestCase
         $responseB->assertStatus(200);
         $this->assertEquals('companyb', TenantContext::getTenant()?->subdomain);
     }
+
+    public function test_subdomain_xyz_com_domain_resolution()
+    {
+        $user = User::first();
+        $this->actingAs($user);
+
+        // Access via companya.xyz.com
+        $responseA = $this->get('http://companya.xyz.com/inventory/products');
+        $responseA->assertStatus(200);
+        $this->assertEquals('companya', TenantContext::getTenant()?->subdomain);
+
+        // Access via companyb.xyz.com
+        $responseB = $this->get('http://companyb.xyz.com/inventory/products');
+        $responseB->assertStatus(200);
+        $this->assertEquals('companyb', TenantContext::getTenant()?->subdomain);
+    }
+
+    public function test_tenant_get_url_helper()
+    {
+        $tenantA = Tenant::where('subdomain', 'companya')->first();
+        $this->assertNotNull($tenantA);
+
+        $url = $tenantA->getUrl('inventory/products');
+        $this->assertStringContainsString('companya.xyz.com', $url);
+        $this->assertStringEndsWith('/inventory/products', $url);
+    }
 }
+

@@ -59,4 +59,22 @@ class Tenant extends Model
     {
         return data_get($this->settings, $key, $default);
     }
+
+    /**
+     * Get the fully qualified URL for this tenant.
+     * E.g. http://companya.xyz.com:8000 or https://companya.xyz.com
+     */
+    public function getUrl(string $path = '', bool $useCustomDomain = false): string
+    {
+        $baseDomain = config('app.central_domain', env('CENTRAL_DOMAIN', 'xyz.com'));
+        $scheme = request()->getScheme() ?: 'http';
+        $port = request()->getPort();
+        $portSuffix = ($port && !in_array($port, [80, 443])) ? ':' . $port : '';
+
+        $host = ($useCustomDomain && $this->domain) ? $this->domain : ($this->subdomain . '.' . $baseDomain);
+        $url = "{$scheme}://{$host}{$portSuffix}";
+
+        return $path ? rtrim($url, '/') . '/' . ltrim($path, '/') : $url;
+    }
 }
+

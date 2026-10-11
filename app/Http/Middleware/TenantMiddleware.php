@@ -12,22 +12,52 @@ class TenantMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $host = $request->getHost();
+        $host = strtolower($request->getHost());
         $tenant = null;
 
-        // 1. Check Subdomain: e.g. companya.localhost or companya.erp.com
-        $parts = explode('.', $host);
-        if (count($parts) > 1 && $parts[0] !== 'www' && $parts[0] !== 'localhost' && $parts[0] !== '127') {
-            $subdomain = $parts[0];
-            $tenant = Tenant::where('subdomain', $subdomain)->first();
+        $centralDomain = config('app.central_domain', env('CENTRAL_DOMAIN', 'xyz.com'));
+        $centralDomains = array_unique(array_filter([
+            $centralDomain,
+            'localhost',
+            '127.0.0.1',
+            'xyz.com',
+        ]));
+
+        $isCentralHost = in_array($host, $centralDomains)
+            || in_array($host, ['www.' . $centralDomain, 'www.xyz.com', 'www.localhost']);
+
+        // 1. Check Subdomain: e.g. companya.xyz.com, companyb.xyz.com, companya.localhost
+        if (!$isCentralHost) {
+            foreach ($centralDomains as $cd) {
+                if ($cd && str_ends_with($host, '.' . $cd)) {
+                    $subdomainCandidate = substr($host, 0, -strlen('.' . $cd));
+                    $subdomainCandidate = explode('.', $subdomainCandidate)[0];
+                    if ($subdomainCandidate && $subdomainCandidate !== 'www') {
+                        $tenant = Tenant::where('subdomain', $subdomainCandidate)->first();
+                        if ($tenant) {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Fallback generic subdomain check: e.g. companya.anydomain.com
+            if (!$tenant) {
+                $parts = explode('.', $host);
+                if (count($parts) > 2 && $parts[0] !== 'www') {
+                    $tenant = Tenant::where('subdomain', $parts[0])->first();
+                } elseif (count($parts) === 2 && $parts[1] === 'localhost') {
+                    $tenant = Tenant::where('subdomain', $parts[0])->first();
+                }
+            }
+
+            // 2. Custom Domain: e.g. erp.companya.com
+            if (!$tenant && !in_array($host, ['localhost', '127.0.0.1'])) {
+                $tenant = Tenant::where('domain', $host)->first();
+            }
         }
 
-        // 2. Custom Domain: e.g. erp.companya.com
-        if (!$tenant && !in_array($host, ['localhost', '127.0.0.1'])) {
-            $tenant = Tenant::where('domain', $host)->first();
-        }
-
-        // 3. Request Header or Query Param (X-Tenant-ID / ?tenant=companya)
+        // 3. Request Header or Query Param (X-Tenant-Subdomain / ?tenant=companya)
         if (!$tenant) {
             $identifier = $request->header('X-Tenant-Subdomain') ?? $request->query('tenant');
             if ($identifier) {
@@ -47,7 +77,7 @@ class TenantMiddleware
             }
         }
 
-        // 5. Default fallback to the first active tenant for smooth local evaluation
+        // 5. Default fallback to the first active tenant for smooth local evaluation on root domain
         if (!$tenant) {
             $tenant = Tenant::where('status', 'active')->first();
             if ($tenant) {
