@@ -3,12 +3,12 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Modules\Organization\Domain\Models\Tenant;
-use Modules\Identity\Domain\Models\User;
-use Modules\Manufacturing\Domain\Models\ProductionOrder;
-use Modules\Manufacturing\Domain\Models\BillOfMaterial;
-use Modules\Inventory\Domain\Models\Warehouse;
-use Modules\Inventory\Domain\Models\StockLevel;
+use Modules\Organization\Models\Tenant;
+use Modules\Identity\Models\User;
+use Modules\Manufacturing\Models\ProductionOrder;
+use Modules\Manufacturing\Models\BillOfMaterial;
+use Modules\Inventory\Models\Warehouse;
+use Modules\Inventory\Models\StockLevel;
 use App\Services\TenantContext;
 
 class ManufacturingWorkflowTest extends TestCase

@@ -1,0 +1,21 @@
+{
+    "name": "Identity & Access Control",
+    "slug": "identity",
+    "version": "1.0.0",
+    "description": "RBAC Roles, Granular Permissions, and User Credential Management",
+    "author": "ApexERP Ecosystem",
+    "providers": [
+        "Modules\\Identity\\Providers\\ModuleServiceProvider"
+    ],
+    "menu": {
+        "name": "Identity & Access Control",
+        "icon": "settings",
+        "order": 95,
+        "subItems": [
+            {
+                "name": "Roles & Permissions",
+                "path": "/settings/roles"
+            }
+        ]
+    }
+}

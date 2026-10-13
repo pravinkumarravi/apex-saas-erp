@@ -1,0 +1,21 @@
+{
+    "name": "Projects & Tasks",
+    "slug": "projects",
+    "version": "1.0.0",
+    "description": "Project Milestones, Gantt Tracking, Task Delegation, and Timesheets",
+    "author": "ApexERP Ecosystem",
+    "providers": [
+        "Modules\\Projects\\Providers\\ModuleServiceProvider"
+    ],
+    "menu": {
+        "name": "Projects & Tasks",
+        "icon": "projects",
+        "order": 80,
+        "subItems": [
+            {
+                "name": "Projects & Tasks",
+                "path": "/projects"
+            }
+        ]
+    }
+}

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Modules\Governance\Domain\Models\ApprovalRequest;
-use Modules\Governance\Domain\Models\ApprovalWorkflow;
-use Modules\Governance\Domain\Models\AuditLog;
-use Modules\Identity\Domain\Models\Permission;
-use Modules\Identity\Domain\Models\Role;
-use Modules\Organization\Domain\Models\Subscription;
-use Modules\Organization\Domain\Models\Tenant;
-use Modules\Identity\Domain\Models\User;
+use Modules\Governance\Models\ApprovalRequest;
+use Modules\Governance\Models\ApprovalWorkflow;
+use Modules\Governance\Models\AuditLog;
+use Modules\Identity\Models\Permission;
+use Modules\Identity\Models\Role;
+use Modules\Organization\Models\Subscription;
+use Modules\Organization\Models\Tenant;
+use Modules\Identity\Models\User;
 use App\Services\TenantContext;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,14 +41,14 @@ class SettingsController
         ]);
 
         // If it's a Purchase Order, update the PO model as well
-        if ($appr->approvable_type === 'Modules\Procurement\Domain\Models\PurchaseOrder') {
-            $po = \Modules\Procurement\Domain\Models\PurchaseOrder::find($appr->approvable_id);
+        if ($appr->approvable_type === 'Modules\Procurement\Models\PurchaseOrder') {
+            $po = \Modules\Procurement\Models\PurchaseOrder::find($appr->approvable_id);
             if ($po) {
                 $po->update(['status' => $request->status, 'approved_by' => Auth::id()]);
             }
         }
 
-        AuditLog::log('actioned_approval', $appr, null, ['status' => $request->status]);
+        do_action('audit_log', 'actioned_approval', $appr, null, ['status' => $request->status]);
 
         return redirect()->back()->with('success', "Approval request marked as {$request->status}.");
     }
@@ -105,7 +105,7 @@ class SettingsController
             $role->permissions()->sync($request->permissions);
         }
 
-        AuditLog::log('created_role', $role, null, $role->toArray());
+        do_action('audit_log', 'created_role', $role, null, $role->toArray());
 
         return redirect()->back()->with('success', "Role {$role->name} created successfully.");
     }
@@ -134,7 +134,7 @@ class SettingsController
         ]);
 
         $tenant->update($validated);
-        AuditLog::log('updated_tenant_settings', $tenant, null, $validated);
+        do_action('audit_log', 'updated_tenant_settings', $tenant, null, $validated);
 
         return redirect()->back()->with('success', 'Organization and GST profile updated.');
     }

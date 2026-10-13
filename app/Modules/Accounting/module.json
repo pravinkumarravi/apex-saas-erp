@@ -1,0 +1,41 @@
+{
+    "name": "Finance & Accounting",
+    "slug": "accounting",
+    "version": "1.0.0",
+    "description": "Chart of Accounts, General Ledger, Journal Entries, Invoicing & GST Reports",
+    "author": "ApexERP Ecosystem",
+    "providers": [
+        "Modules\\Accounting\\Providers\\ModuleServiceProvider"
+    ],
+    "menu": {
+        "name": "Finance & Accounting",
+        "icon": "finance",
+        "order": 55,
+        "subItems": [
+            {
+                "name": "Chart of Accounts",
+                "path": "/finance/chart-of-accounts"
+            },
+            {
+                "name": "Journal Entries",
+                "path": "/finance/journal-entries"
+            },
+            {
+                "name": "GST Tax Invoices",
+                "path": "/finance/invoices"
+            },
+            {
+                "name": "Payments & Receipts",
+                "path": "/finance/payments"
+            },
+            {
+                "name": "Indian GST Reports",
+                "path": "/finance/gst-reports"
+            },
+            {
+                "name": "Financial Statements",
+                "path": "/finance/financial-statements"
+            }
+        ]
+    }
+}

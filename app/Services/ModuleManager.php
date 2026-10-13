@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use Modules\Organization\Domain\Models\TenantModule;
+use Modules\Organization\Models\TenantModule;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -15,7 +15,7 @@ class ModuleManager
 
     public function __construct()
     {
-        $this->modulesPath = base_path('modules');
+        $this->modulesPath = base_path('app/Modules');
         $this->discoverModules();
     }
 
@@ -128,6 +128,7 @@ class ModuleManager
         $viewsPath = $modulePath . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views';
         if (File::isDirectory($viewsPath)) {
             View::addNamespace("module-{$slug}", $viewsPath);
+            View::addNamespace($slug, $viewsPath);
         }
 
         // 4. Register Routes
@@ -143,6 +144,13 @@ class ModuleManager
                 ->middleware(['api', \App\Http\Middleware\TenantMiddleware::class])
                 ->group($apiRoutes);
         }
+
+        // 5. Run module init file if present
+        $initFile = $modulePath . DIRECTORY_SEPARATOR . 'init.php';
+        if (File::exists($initFile)) {
+            require $initFile;
+        }
+
     }
 
     /**

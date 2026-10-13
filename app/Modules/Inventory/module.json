@@ -1,0 +1,33 @@
+{
+    "name": "Inventory & Storage",
+    "slug": "inventory",
+    "version": "1.0.0",
+    "description": "Product Catalog, Multi-Warehouse Stock Tracking, Ledger Movements, and Reorder Gates",
+    "author": "ApexERP Ecosystem",
+    "providers": [
+        "Modules\\Inventory\\Providers\\ModuleServiceProvider"
+    ],
+    "menu": {
+        "name": "Inventory & Storage",
+        "icon": "inventory",
+        "order": 30,
+        "subItems": [
+            {
+                "name": "Product Catalog",
+                "path": "/inventory/products"
+            },
+            {
+                "name": "Stock Levels",
+                "path": "/inventory/stock-levels"
+            },
+            {
+                "name": "Stock Movements Ledger",
+                "path": "/inventory/stock-movements"
+            },
+            {
+                "name": "Warehouses",
+                "path": "/inventory/warehouses"
+            }
+        ]
+    }
+}

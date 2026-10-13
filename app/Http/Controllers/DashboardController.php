@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Modules\Governance\Domain\Models\ApprovalRequest;
-use Modules\Sales\Domain\Models\Customer;
-use Modules\HumanResources\Domain\Models\Employee;
-use Modules\Inventory\Domain\Models\Product;
-use Modules\Manufacturing\Domain\Models\ProductionOrder;
-use Modules\Procurement\Domain\Models\PurchaseOrder;
-use Modules\Sales\Domain\Models\SalesOrder;
-use Modules\Inventory\Domain\Models\StockLevel;
-use Modules\Procurement\Domain\Models\Supplier;
-use Modules\Accounting\Domain\Models\TaxInvoice;
+use Modules\Governance\Models\ApprovalRequest;
+use Modules\Sales\Models\Customer;
+use Modules\HumanResources\Models\Employee;
+use Modules\Inventory\Models\Product;
+use Modules\Manufacturing\Models\ProductionOrder;
+use Modules\Procurement\Models\PurchaseOrder;
+use Modules\Sales\Models\SalesOrder;
+use Modules\Inventory\Models\StockLevel;
+use Modules\Procurement\Models\Supplier;
+use Modules\Accounting\Models\TaxInvoice;
 use App\Services\TenantContext;
 use Illuminate\Http\Request;
 

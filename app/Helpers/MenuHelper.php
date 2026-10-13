@@ -114,53 +114,7 @@ class MenuHelper
 
     public static function getMenuGroups()
     {
-        return [
-            [
-                'title' => 'ERP Modules',
-                'items' => self::getMainNavItems(),
-            ],
-            [
-                'title' => 'System & Controls',
-                'items' => self::getOthersItems(),
-            ],
-        ];
-
-        // Append Dynamically Installed Modules
-        try {
-            $moduleManager = app(\App\Services\ModuleManager::class);
-            $moduleMenus = $moduleManager->getModuleMenuItems();
-
-            if (!empty($moduleMenus)) {
-                $moduleNavItems = [];
-                foreach ($moduleMenus as $m) {
-                    $item = [
-                        'icon' => $m['icon'] ?? 'settings',
-                        'name' => $m['name'] ?? $m['title'] ?? 'Module',
-                    ];
-
-                    if (!empty($m['subItems'])) {
-                        $item['subItems'] = $m['subItems'];
-                    } else {
-                        $path = $m['path'] ?? null;
-                        if (!$path && !empty($m['route']) && \Illuminate\Support\Facades\Route::has($m['route'])) {
-                            $path = route($m['route']);
-                        }
-                        $item['path'] = $path ?? '#';
-                    }
-
-                    $moduleNavItems[] = $item;
-                }
-
-                $groups[] = [
-                    'title' => 'Installed Extensions & Modules',
-                    'items' => $moduleNavItems,
-                ];
-            }
-        } catch (\Throwable $e) {
-            // Graceful fallback if booting
-        }
-
-        return $groups;
+        return app(\App\Services\MenuManager::class)->getMenuGroups();
     }
 
     public static function isActive($path)

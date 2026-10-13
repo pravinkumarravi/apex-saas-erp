@@ -1,0 +1,33 @@
+{
+    "name": "Sales & CRM",
+    "slug": "sales",
+    "version": "1.0.0",
+    "description": "Sales Orders, Dispatch Challans, CRM Leads, and Customer Management",
+    "author": "ApexERP Ecosystem",
+    "providers": [
+        "Modules\\Sales\\Providers\\ModuleServiceProvider"
+    ],
+    "menu": {
+        "name": "CRM & Sales",
+        "icon": "crm",
+        "order": 50,
+        "subItems": [
+            {
+                "name": "Customers",
+                "path": "/crm/customers"
+            },
+            {
+                "name": "Leads & Pipeline",
+                "path": "/crm/leads"
+            },
+            {
+                "name": "Sales Orders",
+                "path": "/sales/orders"
+            },
+            {
+                "name": "Dispatch & Challans",
+                "path": "/sales/delivery-challans"
+            }
+        ]
+    }
+}

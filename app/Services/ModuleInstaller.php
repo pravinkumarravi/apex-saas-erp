@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use Modules\Organization\Domain\Models\Tenant;
-use Modules\Organization\Domain\Models\TenantModule;
+use Modules\Organization\Models\Tenant;
+use Modules\Organization\Models\TenantModule;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;

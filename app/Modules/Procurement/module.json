@@ -1,0 +1,29 @@
+{
+    "name": "Procurement & Purchasing",
+    "slug": "procurement",
+    "version": "1.0.0",
+    "description": "Supplier Database, Purchase Requisitions, Orders (PO), and Goods Receipt Notes (GRN)",
+    "author": "ApexERP Ecosystem",
+    "providers": [
+        "Modules\\Procurement\\Providers\\ModuleServiceProvider"
+    ],
+    "menu": {
+        "name": "Procurement & Purchasing",
+        "icon": "procurement",
+        "order": 20,
+        "subItems": [
+            {
+                "name": "Suppliers & Vendors",
+                "path": "/procurement/suppliers"
+            },
+            {
+                "name": "Purchase Orders",
+                "path": "/procurement/purchase-orders"
+            },
+            {
+                "name": "Goods Receipt Notes (GRN)",
+                "path": "/procurement/goods-receipts"
+            }
+        ]
+    }
+}

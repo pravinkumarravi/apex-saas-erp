@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Modules\Organization\Domain\Models\Tenant;
-use Modules\Identity\Domain\Models\User;
-use Modules\Sales\Domain\Models\Customer;
+use Modules\Organization\Models\Tenant;
+use Modules\Identity\Models\User;
+use Modules\Sales\Models\Customer;
 use App\Services\TenantContext;
 
 class TenancyIsolationTest extends TestCase

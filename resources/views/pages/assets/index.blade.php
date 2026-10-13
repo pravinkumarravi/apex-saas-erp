@@ -127,9 +127,10 @@
                     <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Custodian Personnel</label>
                     <select name="custodian_id" class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 focus:border-brand-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white">
                         <option value="">Unassigned</option>
-                        @foreach($users as $u)
+                        @foreach(($users ?? []) as $u)
                             <option value="{{ $u->id }}">{{ $u->name }}</option>
                         @endforeach
+
                     </select>
                 </div>
 

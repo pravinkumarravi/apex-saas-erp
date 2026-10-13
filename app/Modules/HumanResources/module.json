@@ -1,0 +1,33 @@
+{
+    "name": "HR & Payroll",
+    "slug": "human-resources",
+    "version": "1.0.0",
+    "description": "Employee Directory, Attendance Ledger, Leave Management, and Automated Payroll",
+    "author": "ApexERP Ecosystem",
+    "providers": [
+        "Modules\\HumanResources\\Providers\\ModuleServiceProvider"
+    ],
+    "menu": {
+        "name": "HR & Payroll",
+        "icon": "hr",
+        "order": 70,
+        "subItems": [
+            {
+                "name": "Employees",
+                "path": "/hr/employees"
+            },
+            {
+                "name": "Daily Attendance",
+                "path": "/hr/attendance"
+            },
+            {
+                "name": "Leave Requests",
+                "path": "/hr/leaves"
+            },
+            {
+                "name": "Payroll & Payslips",
+                "path": "/hr/payroll"
+            }
+        ]
+    }
+}

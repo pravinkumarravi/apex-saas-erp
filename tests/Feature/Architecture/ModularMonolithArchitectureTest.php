@@ -3,40 +3,34 @@
 namespace Tests\Feature\Architecture;
 
 use Tests\TestCase;
-use Konekt\Concord\Facades\Concord;
 
 class ModularMonolithArchitectureTest extends TestCase
 {
     /**
-     * Test that all 11 ERP modules are registered and booted in Concord.
+     * Test that all 11 ERP module service providers are registered and booted in Laravel.
      */
-    public function test_all_eleven_concord_modules_are_registered(): void
+    public function test_all_erp_modules_are_registered(): void
     {
-        $expectedModules = [
-            'organization',
-            'identity',
-            'governance',
-            'inventory',
-            'procurement',
-            'manufacturing',
-            'sales',
-            'accounting',
-            'human_resources',
-            'projects',
-            'assets',
+        $expectedProviders = [
+            \Modules\Organization\Providers\ModuleServiceProvider::class,
+            \Modules\Identity\Providers\ModuleServiceProvider::class,
+            \Modules\Governance\Providers\ModuleServiceProvider::class,
+            \Modules\Inventory\Providers\ModuleServiceProvider::class,
+            \Modules\Procurement\Providers\ModuleServiceProvider::class,
+            \Modules\Manufacturing\Providers\ModuleServiceProvider::class,
+            \Modules\Sales\Providers\ModuleServiceProvider::class,
+            \Modules\Accounting\Providers\ModuleServiceProvider::class,
+            \Modules\HumanResources\Providers\ModuleServiceProvider::class,
+            \Modules\Projects\Providers\ModuleServiceProvider::class,
+            \Modules\Assets\Providers\ModuleServiceProvider::class,
         ];
 
-        $registeredModules = collect(Concord::getModules())->map(fn ($m) => $m->getId())->toArray();
-
-        foreach ($expectedModules as $module) {
-            $this->assertContains(
-                $module,
-                $registeredModules,
-                "Expected module '{$module}' to be registered in Concord."
+        foreach ($expectedProviders as $provider) {
+            $this->assertTrue(
+                app()->providerIsLoaded($provider),
+                "Expected provider '{$provider}' to be loaded in the application."
             );
         }
-
-        $this->assertGreaterThanOrEqual(11, count($registeredModules));
     }
 
     /**
@@ -45,28 +39,28 @@ class ModularMonolithArchitectureTest extends TestCase
     public function test_module_repository_interfaces_resolve_from_container(): void
     {
         $repositoryBindings = [
-            \Modules\Organization\Domain\Contracts\TenantRepositoryInterface::class =>
-                \Modules\Organization\Infrastructure\Persistence\Eloquent\Repositories\EloquentTenantRepository::class,
-            \Modules\Identity\Domain\Contracts\UserRepositoryInterface::class =>
-                \Modules\Identity\Infrastructure\Persistence\Eloquent\Repositories\EloquentUserRepository::class,
-            \Modules\Governance\Domain\Contracts\AuditLogRepositoryInterface::class =>
-                \Modules\Governance\Infrastructure\Persistence\Eloquent\Repositories\EloquentAuditLogRepository::class,
-            \Modules\Inventory\Domain\Contracts\ProductRepositoryInterface::class =>
-                \Modules\Inventory\Infrastructure\Persistence\Eloquent\Repositories\EloquentProductRepository::class,
-            \Modules\Procurement\Domain\Contracts\SupplierRepositoryInterface::class =>
-                \Modules\Procurement\Infrastructure\Persistence\Eloquent\Repositories\EloquentSupplierRepository::class,
-            \Modules\Manufacturing\Domain\Contracts\ProductionOrderRepositoryInterface::class =>
-                \Modules\Manufacturing\Infrastructure\Persistence\Eloquent\Repositories\EloquentProductionOrderRepository::class,
-            \Modules\Sales\Domain\Contracts\SalesOrderRepositoryInterface::class =>
-                \Modules\Sales\Infrastructure\Persistence\Eloquent\Repositories\EloquentSalesOrderRepository::class,
-            \Modules\Accounting\Domain\Contracts\ChartOfAccountRepositoryInterface::class =>
-                \Modules\Accounting\Infrastructure\Persistence\Eloquent\Repositories\EloquentChartOfAccountRepository::class,
-            \Modules\HumanResources\Domain\Contracts\EmployeeRepositoryInterface::class =>
-                \Modules\HumanResources\Infrastructure\Persistence\Eloquent\Repositories\EloquentEmployeeRepository::class,
-            \Modules\Projects\Domain\Contracts\ProjectRepositoryInterface::class =>
-                \Modules\Projects\Infrastructure\Persistence\Eloquent\Repositories\EloquentProjectRepository::class,
-            \Modules\Assets\Domain\Contracts\AssetRepositoryInterface::class =>
-                \Modules\Assets\Infrastructure\Persistence\Eloquent\Repositories\EloquentAssetRepository::class,
+            \Modules\Organization\Contracts\TenantRepositoryInterface::class =>
+                \Modules\Organization\Repositories\EloquentTenantRepository::class,
+            \Modules\Identity\Contracts\UserRepositoryInterface::class =>
+                \Modules\Identity\Repositories\EloquentUserRepository::class,
+            \Modules\Governance\Contracts\AuditLogRepositoryInterface::class =>
+                \Modules\Governance\Repositories\EloquentAuditLogRepository::class,
+            \Modules\Inventory\Contracts\ProductRepositoryInterface::class =>
+                \Modules\Inventory\Repositories\EloquentProductRepository::class,
+            \Modules\Procurement\Contracts\SupplierRepositoryInterface::class =>
+                \Modules\Procurement\Repositories\EloquentSupplierRepository::class,
+            \Modules\Manufacturing\Contracts\ProductionOrderRepositoryInterface::class =>
+                \Modules\Manufacturing\Repositories\EloquentProductionOrderRepository::class,
+            \Modules\Sales\Contracts\SalesOrderRepositoryInterface::class =>
+                \Modules\Sales\Repositories\EloquentSalesOrderRepository::class,
+            \Modules\Accounting\Contracts\ChartOfAccountRepositoryInterface::class =>
+                \Modules\Accounting\Repositories\EloquentChartOfAccountRepository::class,
+            \Modules\HumanResources\Contracts\EmployeeRepositoryInterface::class =>
+                \Modules\HumanResources\Repositories\EloquentEmployeeRepository::class,
+            \Modules\Projects\Contracts\ProjectRepositoryInterface::class =>
+                \Modules\Projects\Repositories\EloquentProjectRepository::class,
+            \Modules\Assets\Contracts\AssetRepositoryInterface::class =>
+                \Modules\Assets\Repositories\EloquentAssetRepository::class,
         ];
 
         foreach ($repositoryBindings as $interface => $expectedClass) {
@@ -76,21 +70,21 @@ class ModularMonolithArchitectureTest extends TestCase
     }
 
     /**
-     * Test that all Concord models implement their designated contract interface.
+     * Test that all Domain models implement their designated contract interface.
      */
-    public function test_concord_models_implement_contracts(): void
+    public function test_domain_models_implement_contracts(): void
     {
         $modelContracts = [
-            \Modules\Organization\Domain\Models\Tenant::class => \Modules\Organization\Domain\Contracts\Tenant::class,
-            \Modules\Identity\Domain\Models\User::class => \Modules\Identity\Domain\Contracts\User::class,
-            \Modules\Inventory\Domain\Models\Product::class => \Modules\Inventory\Domain\Contracts\Product::class,
-            \Modules\Procurement\Domain\Models\PurchaseOrder::class => \Modules\Procurement\Domain\Contracts\PurchaseOrder::class,
-            \Modules\Manufacturing\Domain\Models\ProductionOrder::class => \Modules\Manufacturing\Domain\Contracts\ProductionOrder::class,
-            \Modules\Sales\Domain\Models\SalesOrder::class => \Modules\Sales\Domain\Contracts\SalesOrder::class,
-            \Modules\Accounting\Domain\Models\TaxInvoice::class => \Modules\Accounting\Domain\Contracts\TaxInvoice::class,
-            \Modules\HumanResources\Domain\Models\Employee::class => \Modules\HumanResources\Domain\Contracts\Employee::class,
-            \Modules\Projects\Domain\Models\Project::class => \Modules\Projects\Domain\Contracts\Project::class,
-            \Modules\Assets\Domain\Models\Asset::class => \Modules\Assets\Domain\Contracts\Asset::class,
+            \Modules\Organization\Models\Tenant::class => \Modules\Organization\Contracts\Tenant::class,
+            \Modules\Identity\Models\User::class => \Modules\Identity\Contracts\User::class,
+            \Modules\Inventory\Models\Product::class => \Modules\Inventory\Contracts\Product::class,
+            \Modules\Procurement\Models\PurchaseOrder::class => \Modules\Procurement\Contracts\PurchaseOrder::class,
+            \Modules\Manufacturing\Models\ProductionOrder::class => \Modules\Manufacturing\Contracts\ProductionOrder::class,
+            \Modules\Sales\Models\SalesOrder::class => \Modules\Sales\Contracts\SalesOrder::class,
+            \Modules\Accounting\Models\TaxInvoice::class => \Modules\Accounting\Contracts\TaxInvoice::class,
+            \Modules\HumanResources\Models\Employee::class => \Modules\HumanResources\Contracts\Employee::class,
+            \Modules\Projects\Models\Project::class => \Modules\Projects\Contracts\Project::class,
+            \Modules\Assets\Models\Asset::class => \Modules\Assets\Contracts\Asset::class,
         ];
 
         foreach ($modelContracts as $modelClass => $contractInterface) {

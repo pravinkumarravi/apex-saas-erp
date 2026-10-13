@@ -1,0 +1,25 @@
+{
+    "name": "Organization & Tenancy",
+    "slug": "organization",
+    "version": "1.0.0",
+    "description": "Multi-Tenant Scoping, Company Master Profile, and Modular Extension Switchboard",
+    "author": "ApexERP Ecosystem",
+    "providers": [
+        "Modules\\Organization\\Providers\\ModuleServiceProvider"
+    ],
+    "menu": {
+        "name": "Organization & Tenancy",
+        "icon": "settings",
+        "order": 98,
+        "subItems": [
+            {
+                "name": "Company & Subscription",
+                "path": "/settings/tenant"
+            },
+            {
+                "name": "Modular Plugin Manager",
+                "path": "/settings/modules"
+            }
+        ]
+    }
+}

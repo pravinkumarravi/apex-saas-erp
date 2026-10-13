@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use Modules\Organization\Domain\Models\Tenant;
+use Modules\Organization\Models\Tenant;
 use App\Scopes\TenantScope;
 use App\Services\TenantContext;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

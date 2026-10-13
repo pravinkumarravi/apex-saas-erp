@@ -1,0 +1,37 @@
+{
+    "name": "Manufacturing & MRP",
+    "slug": "manufacturing",
+    "version": "1.0.0",
+    "description": "Bills of Material (BOM), Work Orders, Material Routing, and Work Center Scheduling",
+    "author": "ApexERP Ecosystem",
+    "providers": [
+        "Modules\\Manufacturing\\Providers\\ModuleServiceProvider"
+    ],
+    "menu": {
+        "name": "Manufacturing & MRP",
+        "icon": "manufacturing",
+        "order": 40,
+        "subItems": [
+            {
+                "name": "Bills of Material (BOM)",
+                "path": "/manufacturing/bom"
+            },
+            {
+                "name": "Production Work Orders",
+                "path": "/manufacturing/work-orders"
+            },
+            {
+                "name": "Material Consumption",
+                "path": "/manufacturing/material-consumption"
+            },
+            {
+                "name": "Quality Control (QC)",
+                "path": "/manufacturing/quality-control"
+            },
+            {
+                "name": "Work Centers",
+                "path": "/manufacturing/work-centers"
+            }
+        ]
+    }
+}

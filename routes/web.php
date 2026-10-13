@@ -72,6 +72,7 @@ Route::prefix('crm')->name('crm.')->group(function () {
 
     Route::get('/leads', [SalesController::class, 'leads'])->name('leads');
     Route::post('/leads', [SalesController::class, 'storeLead'])->name('leads.store');
+    Route::post('/leads/{id}/convert', [SalesController::class, 'convertLead'])->name('leads.convert');
 });
 
 Route::prefix('sales')->name('sales.')->group(function () {
@@ -91,6 +92,7 @@ Route::prefix('finance')->name('finance.')->group(function () {
     Route::post('/journal-entries', [FinanceController::class, 'storeJournalEntry'])->name('journal-entries.store');
 
     Route::get('/invoices', [FinanceController::class, 'invoices'])->name('invoices');
+    Route::post('/invoices', [FinanceController::class, 'storeInvoice'])->name('invoices.store');
     Route::get('/invoices/{id}', [FinanceController::class, 'showInvoice'])->name('invoices.show');
 
     Route::get('/payments', [FinanceController::class, 'payments'])->name('payments');
@@ -121,8 +123,9 @@ Route::get('/projects', [ProjectController::class, 'index'])->name('projects.ind
 Route::post('/projects', [ProjectController::class, 'storeProject'])->name('projects.store');
 Route::post('/projects/tasks', [ProjectController::class, 'storeTask'])->name('projects.tasks.store');
 
-Route::get('/assets', [ProjectController::class, 'assets'])->name('assets.index');
-Route::post('/assets', [ProjectController::class, 'storeAsset'])->name('assets.store');
+Route::get('/assets', [\Modules\Assets\Http\Controllers\AssetController::class, 'index'])->name('assets.index');
+Route::post('/assets', [\Modules\Assets\Http\Controllers\AssetController::class, 'store'])->name('assets.store');
+
 
 // --- GOVERNANCE & SETTINGS ---
 Route::prefix('governance')->name('governance.')->group(function () {

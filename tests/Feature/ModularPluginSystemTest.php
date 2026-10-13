@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Modules\Organization\Domain\Models\Tenant;
-use Modules\Identity\Domain\Models\User;
+use Modules\Organization\Models\Tenant;
+use Modules\Identity\Models\User;
 use App\Services\ModuleManager;
 use App\Services\ModuleInstaller;
 use App\Services\TenantContext;
@@ -35,7 +35,7 @@ class ModularPluginSystemTest extends TestCase
         // Check dynamic menu registration
         $menus = $moduleManager->getModuleMenuItems();
         $this->assertNotEmpty($menus);
-        $this->assertEquals('quality-audit', $menus[0]['module_slug']);
+        $this->assertContains('quality-audit', array_column($menus, 'module_slug'));
     }
 
     public function test_module_repository_pattern_and_ddd()

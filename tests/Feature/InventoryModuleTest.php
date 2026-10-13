@@ -2,15 +2,15 @@
 
 namespace Tests\Feature;
 
-use Modules\Organization\Domain\Models\Tenant;
-use Modules\Identity\Domain\Models\User;
+use Modules\Organization\Models\Tenant;
+use Modules\Identity\Models\User;
 use Modules\Inventory\Application\Contracts\InventoryServiceInterface;
 use Modules\Inventory\Application\DTOs\StockAdjustmentDTO;
-use Modules\Inventory\Domain\Contracts\ProductRepositoryInterface;
-use Modules\Inventory\Domain\Contracts\StockRepositoryInterface;
-use Modules\Inventory\Domain\Contracts\WarehouseRepositoryInterface;
-use Modules\Inventory\Domain\Models\Product;
-use Modules\Inventory\Domain\Models\Warehouse;
+use Modules\Inventory\Contracts\ProductRepositoryInterface;
+use Modules\Inventory\Contracts\StockRepositoryInterface;
+use Modules\Inventory\Contracts\WarehouseRepositoryInterface;
+use Modules\Inventory\Models\Product;
+use Modules\Inventory\Models\Warehouse;
 use App\Services\TenantContext;
 use Tests\TestCase;
 

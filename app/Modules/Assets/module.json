@@ -1,0 +1,21 @@
+{
+    "name": "Fixed Asset Register",
+    "slug": "assets",
+    "version": "1.0.0",
+    "description": "Fixed Asset Registry, Depreciation Tracking, and Maintenance Schedules",
+    "author": "ApexERP Ecosystem",
+    "providers": [
+        "Modules\\Assets\\Providers\\ModuleServiceProvider"
+    ],
+    "menu": {
+        "name": "Fixed Asset Register",
+        "icon": "projects",
+        "order": 85,
+        "subItems": [
+            {
+                "name": "Asset Registry",
+                "path": "/assets"
+            }
+        ]
+    }
+}

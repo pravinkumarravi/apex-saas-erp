@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use Modules\Organization\Domain\Models\Tenant;
+use Modules\Organization\Models\Tenant;
 use App\Services\TenantContext;
 use Closure;
 use Illuminate\Http\Request;

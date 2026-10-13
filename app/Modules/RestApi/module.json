@@ -1,0 +1,33 @@
+{
+    "name": "REST API & Webhooks",
+    "slug": "rest-api",
+    "version": "1.0.0",
+    "description": "Secure REST API Gateway, API Key Authentication, OpenAPI Documentation, and Event Webhook Subscriptions",
+    "author": "ApexERP Ecosystem",
+    "providers": [
+        "Modules\\RestApi\\Providers\\RestApiServiceProvider"
+    ],
+    "menu": {
+        "name": "API & Webhooks",
+        "icon": "settings",
+        "order": 60,
+        "subItems": [
+            {
+                "name": "API Dashboard",
+                "path": "/developer/api/dashboard"
+            },
+            {
+                "name": "API Keys",
+                "path": "/developer/api/keys"
+            },
+            {
+                "name": "Webhook Subscriptions",
+                "path": "/developer/api/webhooks"
+            },
+            {
+                "name": "API Documentation",
+                "path": "/developer/api/docs"
+            }
+        ]
+    }
+}

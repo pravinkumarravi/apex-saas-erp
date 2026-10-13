@@ -1,0 +1,25 @@
+{
+    "name": "Governance & Audits",
+    "slug": "governance",
+    "version": "1.0.0",
+    "description": "Enterprise Approval Workflows, Policy Adherence, and Immutable Audit Trail Logs",
+    "author": "ApexERP Ecosystem",
+    "providers": [
+        "Modules\\Governance\\Providers\\ModuleServiceProvider"
+    ],
+    "menu": {
+        "name": "Governance & Audits",
+        "icon": "governance",
+        "order": 90,
+        "subItems": [
+            {
+                "name": "Approval Workflows",
+                "path": "/governance/approvals"
+            },
+            {
+                "name": "Audit Trail Logs",
+                "path": "/governance/audit-logs"
+            }
+        ]
+    }
+}
