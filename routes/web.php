@@ -1,14 +1,14 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\FinanceController;
-use App\Http\Controllers\HrController;
-use App\Http\Controllers\InventoryController;
+use Modules\Accounting\Http\Controllers\FinanceController;
+use Modules\HumanResources\Http\Controllers\HrController;
+use Modules\Inventory\Http\Controllers\InventoryController;
 use App\Http\Controllers\LocaleController;
-use App\Http\Controllers\ManufacturingController;
-use App\Http\Controllers\ProcurementController;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\SalesController;
+use Modules\Manufacturing\Http\Controllers\ManufacturingController;
+use Modules\Procurement\Http\Controllers\ProcurementController;
+use Modules\Projects\Http\Controllers\ProjectController;
+use Modules\Sales\Http\Controllers\SalesController;
 use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 

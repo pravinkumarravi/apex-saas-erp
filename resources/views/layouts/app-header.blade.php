@@ -146,7 +146,7 @@
                         <p class="text-[11px] text-gray-400 mt-0.5">Strict Tenant Isolation Enforced</p>
                     </div>
                     @php
-                        $allTenants = \App\Models\Tenant::where('status', 'active')->get();
+                        $allTenants = \Modules\Organization\Domain\Models\Tenant::where('status', 'active')->get();
                     @endphp
                     <div class="py-1">
                         @foreach($allTenants as $t)

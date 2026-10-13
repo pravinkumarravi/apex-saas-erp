@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\Tenant;
-use App\Models\User;
-use App\Models\Customer;
+use Modules\Organization\Domain\Models\Tenant;
+use Modules\Identity\Domain\Models\User;
+use Modules\Sales\Domain\Models\Customer;
 use App\Services\TenantContext;
 
 class TenancyIsolationTest extends TestCase
@@ -49,18 +49,18 @@ class TenancyIsolationTest extends TestCase
         $this->assertEquals('companyb', TenantContext::getTenant()?->subdomain);
     }
 
-    public function test_subdomain_xyz_com_domain_resolution()
+    public function test_subdomain_localhost_resolution()
     {
         $user = User::first();
         $this->actingAs($user);
 
-        // Access via companya.xyz.com
-        $responseA = $this->get('http://companya.xyz.com/inventory/products');
+        // Access via companya.localhost
+        $responseA = $this->get('http://companya.localhost/inventory/products');
         $responseA->assertStatus(200);
         $this->assertEquals('companya', TenantContext::getTenant()?->subdomain);
 
-        // Access via companyb.xyz.com
-        $responseB = $this->get('http://companyb.xyz.com/inventory/products');
+        // Access via companyb.localhost
+        $responseB = $this->get('http://companyb.localhost/inventory/products');
         $responseB->assertStatus(200);
         $this->assertEquals('companyb', TenantContext::getTenant()?->subdomain);
     }
@@ -71,8 +71,9 @@ class TenancyIsolationTest extends TestCase
         $this->assertNotNull($tenantA);
 
         $url = $tenantA->getUrl('inventory/products');
-        $this->assertStringContainsString('companya.xyz.com', $url);
+        $this->assertStringContainsString('companya.localhost', $url);
         $this->assertStringEndsWith('/inventory/products', $url);
     }
 }
+
 

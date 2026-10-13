@@ -17,6 +17,8 @@ class QualityAuditServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $this->loadMigrationsFrom(dirname(__DIR__, 2) . '/database/migrations');
+
         if (class_exists(Livewire::class)) {
             Livewire::component('quality-audit-manager', QualityAuditManager::class);
         }

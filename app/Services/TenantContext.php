@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Tenant;
+use Modules\Organization\Domain\Models\Tenant;
 
 class TenantContext
 {

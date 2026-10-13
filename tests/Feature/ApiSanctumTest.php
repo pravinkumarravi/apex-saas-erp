@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\Tenant;
-use App\Models\User;
+use Modules\Organization\Domain\Models\Tenant;
+use Modules\Identity\Domain\Models\User;
 use App\Services\TenantContext;
 
 class ApiSanctumTest extends TestCase

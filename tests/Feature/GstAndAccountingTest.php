@@ -3,10 +3,10 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\Tenant;
-use App\Models\User;
-use App\Models\TaxInvoice;
-use App\Models\ChartOfAccount;
+use Modules\Organization\Domain\Models\Tenant;
+use Modules\Identity\Domain\Models\User;
+use Modules\Accounting\Domain\Models\TaxInvoice;
+use Modules\Accounting\Domain\Models\ChartOfAccount;
 use App\Services\TenantContext;
 
 class GstAndAccountingTest extends TestCase

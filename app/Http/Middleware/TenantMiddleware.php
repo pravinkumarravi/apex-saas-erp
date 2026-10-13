@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Tenant;
+use Modules\Organization\Domain\Models\Tenant;
 use App\Services\TenantContext;
 use Closure;
 use Illuminate\Http\Request;
@@ -15,16 +15,15 @@ class TenantMiddleware
         $host = strtolower($request->getHost());
         $tenant = null;
 
-        $centralDomain = config('app.central_domain', env('CENTRAL_DOMAIN', 'xyz.com'));
+        $centralDomain = config('app.central_domain', env('CENTRAL_DOMAIN', 'localhost'));
         $centralDomains = array_unique(array_filter([
             $centralDomain,
             'localhost',
             '127.0.0.1',
-            'xyz.com',
         ]));
 
         $isCentralHost = in_array($host, $centralDomains)
-            || in_array($host, ['www.' . $centralDomain, 'www.xyz.com', 'www.localhost']);
+            || in_array($host, ['www.' . $centralDomain, 'www.localhost']);
 
         // 1. Check Subdomain: e.g. companya.xyz.com, companyb.xyz.com, companya.localhost
         if (!$isCentralHost) {

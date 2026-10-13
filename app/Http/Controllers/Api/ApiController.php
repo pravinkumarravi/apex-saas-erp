@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\ApprovalRequest;
-use App\Models\Product;
-use App\Models\PurchaseOrder;
-use App\Models\SalesOrder;
-use App\Models\StockLevel;
-use App\Models\TaxInvoice;
-use App\Models\User;
+use Modules\Governance\Domain\Models\ApprovalRequest;
+use Modules\Inventory\Domain\Models\Product;
+use Modules\Procurement\Domain\Models\PurchaseOrder;
+use Modules\Sales\Domain\Models\SalesOrder;
+use Modules\Inventory\Domain\Models\StockLevel;
+use Modules\Accounting\Domain\Models\TaxInvoice;
+use Modules\Identity\Domain\Models\User;
 use App\Services\TenantContext;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

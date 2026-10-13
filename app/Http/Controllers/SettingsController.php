@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ApprovalRequest;
-use App\Models\ApprovalWorkflow;
-use App\Models\AuditLog;
-use App\Models\Permission;
-use App\Models\Role;
-use App\Models\Subscription;
-use App\Models\Tenant;
-use App\Models\User;
+use Modules\Governance\Domain\Models\ApprovalRequest;
+use Modules\Governance\Domain\Models\ApprovalWorkflow;
+use Modules\Governance\Domain\Models\AuditLog;
+use Modules\Identity\Domain\Models\Permission;
+use Modules\Identity\Domain\Models\Role;
+use Modules\Organization\Domain\Models\Subscription;
+use Modules\Organization\Domain\Models\Tenant;
+use Modules\Identity\Domain\Models\User;
 use App\Services\TenantContext;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,8 +41,8 @@ class SettingsController
         ]);
 
         // If it's a Purchase Order, update the PO model as well
-        if ($appr->approvable_type === 'App\Models\PurchaseOrder') {
-            $po = \App\Models\PurchaseOrder::find($appr->approvable_id);
+        if ($appr->approvable_type === 'Modules\Procurement\Domain\Models\PurchaseOrder') {
+            $po = \Modules\Procurement\Domain\Models\PurchaseOrder::find($appr->approvable_id);
             if ($po) {
                 $po->update(['status' => $request->status, 'approved_by' => Auth::id()]);
             }

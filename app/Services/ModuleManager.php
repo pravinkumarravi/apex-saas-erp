@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\TenantModule;
+use Modules\Organization\Domain\Models\TenantModule;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
